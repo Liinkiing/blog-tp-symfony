@@ -8,14 +8,25 @@
                 <tr>
                     <th>Titre</th>
                     <th>Auteur</th>
-                    <th></th>
+                    <th>Créée le</th>
+                    <th>Modifié le</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-
+                {% for article in articles %}
+                    <tr>
+                        <td>{{ article.title }}</td>
+                        <td>{{ article.author.username }}</td>
+                        <td>{{ article.createdAt|date('d/m/Y') }}, à <pre>{{ article.createdAt|date('H:i:s') }}</pre></td>
+                        <td>{{ article.editedAt|date('d/m/Y') }}</td>
+                        <td><a href="">Éditer</a><a href="">Supprimer</a></td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
 
+        <a href="">Ajouter un article</a>
     {% endblock %}
 
 {% endembed %}

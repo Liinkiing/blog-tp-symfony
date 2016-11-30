@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Admin;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Class AdminController
- * @package AppBundle\Controller
+ * @package AppBundle\Controller\Admin
  * @Route("/admin")
  * @Security("has_role('ROLE_ADMIN')")
  */
