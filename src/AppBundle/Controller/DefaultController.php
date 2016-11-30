@@ -14,11 +14,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-
-
-        $roles = $this->getDoctrine()->getRepository('AppBundle:Utilisateur')->find(1)->getRoles();
         return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
-            'roles' => $roles]);
+            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR]);
     }
 }
