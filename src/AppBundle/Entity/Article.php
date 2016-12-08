@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,6 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Article
 {
+
+    public function __construct()
+    {
+        $this->createdAt = new DateTime();
+    }
+
     /**
      * @var int
      *
@@ -45,7 +52,7 @@ class Article
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="edited_at", type="datetime")
+     * @ORM\Column(name="edited_at", type="datetime", nullable=true)
      */
     private $editedAt;
 
@@ -59,9 +66,16 @@ class Article
     /**
      * @var Utilisateur
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Utilisateur", inversedBy="articles")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Utilisateur", inversedBy="articles", cascade={"remove"})
      */
     private $author;
+
+    /**
+     * @var Commentaire[]
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Commentaire", mappedBy="article")
+     */
+    private $comments;
 
 
     /**
@@ -216,5 +230,39 @@ class Article
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Commentaire $comment
+     *
+     * @return Article
+     */
+    public function addComment(\AppBundle\Entity\Commentaire $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \AppBundle\Entity\Commentaire $comment
+     */
+    public function removeComment(\AppBundle\Entity\Commentaire $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

@@ -20,13 +20,13 @@
                         <td>{{ article.author.username }}</td>
                         <td>{{ article.createdAt|date('d/m/Y') }}, à <pre>{{ article.createdAt|date('H:i:s') }}</pre></td>
                         <td>{{ article.editedAt|date('d/m/Y') }}</td>
-                        <td><a href="">Éditer</a><a href="">Supprimer</a></td>
+                        <td><a href="{{ path('admin_article_edit', {'id': article.id}) }}">Éditer</a><a href="{{ path('admin_article_delete', {'id': article.id}) }}">Supprimer</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
 
-        <a href="">Ajouter un article</a>
+        <a href="{{ path('admin_article_add') }}">Ajouter un article</a>
     {% endblock %}
 
 {% endembed %}

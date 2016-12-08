@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -53,30 +54,37 @@ class Utilisateur implements UserInterface, \Serializable
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="edited_at", type="datetime")
+     * @ORM\Column(name="edited_at", type="datetime", nullable=true )
      */
     private $editedAt;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="profile_picture_link", type="string", length=255)
+     * @ORM\Column(name="profile_picture_link", type="string", length=255, nullable=true)
      */
     private $profilePictureLink;
 
     /**
      * @var Article[]
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Article", mappedBy="author")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Article", mappedBy="author", cascade={"remove"})
      */
     private $articles;
 
     /**
      * @var Role[]
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Role")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Role", inversedBy="utilisateurs")
      */
     private $roles;
+
+    /**
+     * @var Commentaire[]
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Commentaire", mappedBy="author")
+     */
+    private $comments;
 
 
     /**
@@ -329,7 +337,12 @@ class Utilisateur implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-
+//        ['ROLE_USER', 'ROLE_ADMIN'];
+        $r = [];
+        foreach($this->roles as $role) {
+            array_push($r, $role->getRole());
+        }
+        return $r;
     }
 
     /**
@@ -378,4 +391,6 @@ class Utilisateur implements UserInterface, \Serializable
     {
         $this->roles->removeElement($role);
     }
+
+
 }

@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Commentaire;
 use AppBundle\Entity\Utilisateur;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,7 +23,6 @@ class SecurityController extends Controller
         $lastUsername = $authenticationUtils->getLastUsername();
 
         $error = $authenticationUtils->getLastAuthenticationError();
-
 
         return $this->render('security/login.html.twig', array(
             'last_username' => $lastUsername,

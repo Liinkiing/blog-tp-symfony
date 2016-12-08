@@ -6,7 +6,8 @@ use AppBundle\Entity\Article;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
+
 
 /**
  * Class ArticleController
@@ -42,6 +43,7 @@ class ArticleController extends Controller
             $article = new Article();
             $article->setTitle($request->get("title"))
                 ->setContent($request->get("content"))
+                ->setThumbnail($request->get('thumbnail'))
                 ->setAuthor($this->getUser());
 
             $em = $this->getDoctrine()->getManager();
@@ -51,5 +53,37 @@ class ArticleController extends Controller
             return $this->redirectToRoute("admin_article_index");
 
         }
+    }
+
+    /**
+     * @param Request $request
+     * @Route("/edit/{id}", name="admin_article_edit")
+     */
+    public function editAction (Request $request, Article $article){
+        if($request->getMethod()=="GET"){
+            return $this->render("/admin/article/edit.html.twig", [
+                "article"=>$article
+            ]);
+        } else{
+            $article->setTitle($request->get("title"))
+                ->setContent($request->get("content"))
+                ->setThumbnail($request->get('thumbnail'))
+                ->setAuthor($this->getUser())
+                ->setEditedAt(new \DateTime());
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            return $this->redirectToRoute("admin_article_index");
+        }
+    }
+    /**
+     * @param Request $request
+     * @Route("/delete/{id}", name="admin_article_delete")
+     */
+    public function deleteAction(Request $request, $id){
+        $article = $this->getDoctrine()->getRepository("AppBundle:Article")->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($article);
+        $em->flush();
+        return $this->redirectToRoute("admin_article_index");
     }
 }

@@ -68,7 +68,7 @@ class Utilisateur implements UserInterface, \Serializable
     /**
      * @var Article[]
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Article", mappedBy="author")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Article", mappedBy="author", cascade={"remove"})
      */
     private $articles;
 
@@ -78,6 +78,13 @@ class Utilisateur implements UserInterface, \Serializable
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Role", inversedBy="utilisateurs")
      */
     private $roles;
+
+    /**
+     * @var Commentaire[]
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Commentaire", mappedBy="author")
+     */
+    private $comments;
 
 
     /**
@@ -386,4 +393,38 @@ class Utilisateur implements UserInterface, \Serializable
     }
 
 
+
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Commentaire $comment
+     *
+     * @return Utilisateur
+     */
+    public function addComment(\AppBundle\Entity\Commentaire $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \AppBundle\Entity\Commentaire $comment
+     */
+    public function removeComment(\AppBundle\Entity\Commentaire $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
 }

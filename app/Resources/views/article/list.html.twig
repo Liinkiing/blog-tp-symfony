@@ -1,0 +1,15 @@
+{% embed 'base.html.twig' %}
+
+    {% block body %}
+
+        <h1>Affichage de tous les articles</h1>
+        {% for article in articles  %}
+
+            <h2>{{ article.title }}</h2>
+            <p>{{ article.content }}</p>
+            <p>{{ article.createdAt|date('m/d/Y, à H:i:s') }}</p>
+
+        {% endfor %}
+    {% endblock %}
+
+{% endembed %}
