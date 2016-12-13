@@ -66,6 +66,36 @@ class Utilisateur implements UserInterface, \Serializable
     private $profilePictureLink;
 
     /**
+     * @var \DateTime
+     * @ORM\Column(name="last_login", type="datetime", nullable=true)
+     */
+    private $last_login;
+
+    /**
+     * @var string
+     * @ORM\Column(name="token", type="string", length=60, nullable=true)
+     */
+    private $token;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="confirmed_at", type="datetime", nullable=true)
+     */
+    private $confirmed_at;
+
+    /**
+     * @var string
+     * @ORM\Column(name="password_token", type="string", length=60, nullable=true)
+     */
+    private $passwordToken;
+
+    /**
+     * @var string
+     * @ORM\Column(name="password_reseted_at", type="datetime", nullable=true)
+     */
+    private $passwordResetedAt;
+
+    /**
      * @var Article[]
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Article", mappedBy="author", cascade={"remove"})
@@ -248,6 +278,10 @@ class Utilisateur implements UserInterface, \Serializable
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    public function isConfirmed() {
+        return ($this->getConfirmedAt() != null);
+    }
+
     /**
      * Add article
      *
@@ -426,5 +460,125 @@ class Utilisateur implements UserInterface, \Serializable
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Set lastLogin
+     *
+     * @param \DateTime $lastLogin
+     *
+     * @return Utilisateur
+     */
+    public function setLastLogin($lastLogin)
+    {
+        $this->last_login = $lastLogin;
+
+        return $this;
+    }
+
+    /**
+     * Get lastLogin
+     *
+     * @return \DateTime
+     */
+    public function getLastLogin()
+    {
+        return $this->last_login;
+    }
+
+    /**
+     * Set token
+     *
+     * @param string $token
+     *
+     * @return Utilisateur
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get token
+     *
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * Set confirmedAt
+     *
+     * @param \DateTime $confirmedAt
+     *
+     * @return Utilisateur
+     */
+    public function setConfirmedAt($confirmedAt)
+    {
+        $this->confirmed_at = $confirmedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get confirmedAt
+     *
+     * @return \DateTime
+     */
+    public function getConfirmedAt()
+    {
+        return $this->confirmed_at;
+    }
+
+    /**
+     * Set passwordToken
+     *
+     * @param string $passwordToken
+     *
+     * @return Utilisateur
+     */
+    public function setPasswordToken($passwordToken)
+    {
+        $this->passwordToken = $passwordToken;
+
+        return $this;
+    }
+
+    /**
+     * Get passwordToken
+     *
+     * @return string
+     */
+    public function getPasswordToken()
+    {
+        return $this->passwordToken;
+    }
+
+    /**
+     * Set passwordResetedAt
+     *
+     * @param \DateTime $passwordResetedAt
+     *
+     * @return Utilisateur
+     */
+    public function setPasswordResetedAt($passwordResetedAt)
+    {
+        $this->passwordResetedAt = $passwordResetedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get passwordResetedAt
+     *
+     * @return \DateTime
+     */
+    public function getPasswordResetedAt()
+    {
+        return $this->passwordResetedAt;
     }
 }

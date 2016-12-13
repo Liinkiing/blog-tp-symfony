@@ -10,4 +10,15 @@ namespace AppBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByDate($day, $month, $year, $order = "DESC") {
+        $date = \DateTime::createFromFormat('d/m/Y', "$day/$month/$year");
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        return $qb->select("article")
+            ->from('AppBundle:Article', 'article')
+            ->where("article.createdAt = :date")
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getResult();
+    }
+
 }

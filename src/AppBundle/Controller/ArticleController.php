@@ -24,4 +24,25 @@ class ArticleController extends Controller
         ]);
 
     }
+
+    /**
+     * @param Request $request
+     * @Route("/{day}/{month}/{year}/{slug}", name="article_show", requirements={"day": "\d+", "month": "\d+", "year": "\d+"})
+     * @return \Symfony\Component\HttpFoundation\Response|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function showAction(Request $request, $day, $month, $year, $slug) {
+        $date = \DateTime::createFromFormat('d/m/Y', "$day/$month/$year");
+        $article =  $this->getDoctrine()->getRepository('AppBundle:Article')->findOneBy(
+            ['slug' => $slug]
+        );
+        if(!$article) throw $this->createNotFoundException("L'article est pas trouvé fdp");
+        if($article->getCreatedAt()->format('d') == $day && $article->getCreatedAt()->format('m') == $month && $article->getCreatedAt()->format('Y') == $year) {
+            return $this->render('article/show.html.twig', [
+                'article' => $article
+            ]);
+        } else {
+            throw $this->createNotFoundException("L'article n'a pas été trouvé :(");
+        }
+
+    }
 }

@@ -68,7 +68,7 @@ class Article
     /**
      * @var Utilisateur
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Utilisateur", inversedBy="articles", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Utilisateur", inversedBy="articles")
      */
     private $author;
 

@@ -66,6 +66,36 @@ class Utilisateur implements UserInterface, \Serializable
     private $profilePictureLink;
 
     /**
+     * @var \DateTime
+     * @ORM\Column(name="last_login", type="datetime", nullable=true)
+     */
+    private $last_login;
+
+    /**
+     * @var string
+     * @ORM\Column(name="token", type="string", length=60, nullable=true)
+     */
+    private $token;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="confirmed_at", type="datetime", nullable=true)
+     */
+    private $confirmed_at;
+
+    /**
+     * @var string
+     * @ORM\Column(name="password_token", type="string", length=60, nullable=true)
+     */
+    private $passwordToken;
+
+    /**
+     * @var string
+     * @ORM\Column(name="password_reseted_at", type="datetime", nullable=true)
+     */
+    private $passwordResetedAt;
+
+    /**
      * @var Article[]
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Article", mappedBy="author", cascade={"remove"})
@@ -393,4 +423,38 @@ class Utilisateur implements UserInterface, \Serializable
     }
 
 
+
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Commentaire $comment
+     *
+     * @return Utilisateur
+     */
+    public function addComment(\AppBundle\Entity\Commentaire $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \AppBundle\Entity\Commentaire $comment
+     */
+    public function removeComment(\AppBundle\Entity\Commentaire $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
 }

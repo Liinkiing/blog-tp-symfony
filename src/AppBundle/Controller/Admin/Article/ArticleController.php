@@ -72,6 +72,7 @@ class ArticleController extends Controller
                 ->setEditedAt(new \DateTime());
             $em = $this->getDoctrine()->getManager();
             $em->flush();
+            $this->addFlash('success', "L'article a bien été edité !");
             return $this->redirectToRoute("admin_article_index");
         }
     }
@@ -84,6 +85,7 @@ class ArticleController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($article);
         $em->flush();
+        $this->addFlash('success', "L'article a bien été supprimé !");
         return $this->redirectToRoute("admin_article_index");
     }
 }
