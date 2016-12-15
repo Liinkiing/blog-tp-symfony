@@ -1,57 +1,102 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}JBARA Omar - {{ title|default('Accueil') }}{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    </head>
-    <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <a href="{{ path('homepage') }}" class="navbar-brand">TheBlog78</a>
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="{{ path('article_list') }}">Tous les articles</a>
-                    </li>
-                </ul>
-
-                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-            </div>
-            <ul class="nav navbar-nav navbar-right">
-                {% if app.user and is_granted('ROLE_ADMIN') %}
-                    <li><a href="{{ path('admin_index') }}">Administration</a></li>
-                {% endif %}
-                <li><a href="{{ app.user ? path('logout') : path('login') }}">{{ app.user ? 'Se déconnecter' : 'Se connecter' }}</a></li>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}JBARA Omar - {{ title|default('Accueil') }}{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="{{ path('homepage') }}" class="navbar-brand">TheBlog78</a>
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{{ path('article_list') }}">Tous les articles</a>
+                </li>
             </ul>
+
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
         </div>
-    </nav>
-    <main class="container offset">
-        <div class="col-lg-8">
-            {% if app.session.flashbag.peekAll|length > 0 %}
-                {% for type, messages in app.session.flashbag.all %}
-                    {% for message in messages %}
-                        <div class="alert alert-dismissable alert-{{ type ? type : 'info' }}">
-                            {{ message|raw }}
-                        </div>
-                    {% endfor %}
-                {% endfor %}
+        <ul class="nav navbar-nav navbar-right">
+            {% if app.user and is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('admin_index') }}">Administration</a></li>
             {% endif %}
-            {% block body %}{% endblock %}
-            {% block javascripts %}{% endblock %}
-        </div>
+            <li>
+                <a href="{{ app.user ? path('logout') : path('login') }}">{{ app.user ? 'Se déconnecter' : 'Se connecter / S\'inscrire' }}</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<main class="container offset">
+    <div class="col-lg-{{ sidebar|default(true) ? '8' : '12' }}">
+        {% if app.session.flashbag.peekAll|length > 0 %}
+            {% for type, messages in app.session.flashbag.all %}
+                {% for message in messages %}
+                    <div class="alert alert-dismissable alert-{{ type ? type : 'info' }}">
+                        {{ message|raw }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+        {% block body %}{% endblock %}
+    </div>
+    {% if sidebar|default(true) %}
         <div class="col-lg-4">
             {% embed '_partials/_sidebar.html.twig' %}{% endembed %}
         </div>
-    </main>
+    {% endif %}
 
-    </body>
+</main>
+<script
+        src="http://code.jquery.com/jquery-3.1.1.js"
+        integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+        crossorigin="anonymous"></script>
+<script src="{{ asset('js/jquery.sticky.js') }}"></script>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>
+    $(document).ready(function() {
+
+    	let sidebar = $('.sidebar');
+
+	    tinymce.init({
+		    selector: 'textarea.advanced-editor',
+		    height: 500,
+		    theme: 'modern',
+		    plugins: [
+			    'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+			    'searchreplace wordcount visualblocks visualchars code fullscreen',
+			    'insertdatetime media nonbreaking save table contextmenu directionality',
+			    'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+		    ],
+		    toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+		    toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
+		    image_advtab: true,
+		    templates: [
+			    {title: 'Test template 1', content: 'Test 1'},
+			    {title: 'Test template 2', content: 'Test 2'}
+		    ],
+		    content_css: [
+			    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+			    '//www.tinymce.com/css/codepen.min.css'
+		    ]
+	    });
+
+	    if(sidebar.length > 0) {
+	    	sidebar.sticky();
+        }
+
+    });
+
+</script>
+{% block javascripts %}{% endblock %}
+</body>
 </html>

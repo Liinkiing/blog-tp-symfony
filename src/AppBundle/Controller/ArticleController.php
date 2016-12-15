@@ -66,6 +66,28 @@ class ArticleController extends Controller
 
     /**
      * @param Request $request
+     * @param Commentaire $comment
+     * @Route("/comment/{id}/delete", name="comment_delete")
+     * @Method({"POST"})
+     */
+    public function deleteCommentAction(Request $request, Commentaire $comment) {
+        if($this->getUser() == $comment->getAuthor() || $this->isGranted('ROLE_ADMIN')) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($comment);
+            $em->flush();
+            $this->addFlash('success', (($this->isGranted('ROLE_ADMIN') ? "Le " : "Votre ")) . "commentaire a bien été supprimé");
+            return $this->redirectToRoute("article_show", [
+                'day' => $comment->getArticle()->getCreatedAt()->format('d'),
+                'month' => $comment->getArticle()->getCreatedAt()->format('m'),
+                'year' => $comment->getArticle()->getCreatedAt()->format('Y'),
+                'slug' => $comment->getArticle()->getSlug()
+            ]);
+        }
+        throw $this->createAccessDeniedException();
+    }
+
+    /**
+     * @param Request $request
      * @Route("/{day}/{month}/{year}/{slug}", name="article_show", requirements={"day": "\d+", "month": "\d+", "year": "\d+"})
      * @return \Symfony\Component\HttpFoundation\Response|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */

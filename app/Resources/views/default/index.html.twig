@@ -2,10 +2,26 @@
 
 {% block body %}
 
-    <div class="container offset">
-        <h1>TheBlog78</h1>
+    <h1>TheBlog78</h1>
+    {% if articles|length == 0 %}
+        <h2>Aucun article pour le moment :(</h2>
+    {% else %}
         <h2>Les derniers articles</h2>
-    </div>
+        {% for article in articles %}
+            {% if loop.index <= 3 %}
+                <article>
+                    <h2><a href="{{ path('article_show', {'day': article.createdAt|date('d'), 'month': article.createdAt|date('m'), 'slug': article.slug, 'year': article.createdAt|date('Y')}) }}">{{ article.title }}</a></h2>
+                    <p>{{ article.content|truncate(100)|raw }}</p>
+                    <p>{{ article.author.username }}</p>
+                    <p>{{ article.createdAt|date('d/m/Y, à H:i') }}</p>
+                </article>
+            {% endif %}
+        {% endfor %}
+        {% if articles|length > 3 %}
+            <a href="{{ path('article_list') }}" class="btn btn-primary">Afficher tous les articles</a>
+        {% endif %}
+    {% endif %}
+
 
 {% endblock %}
 

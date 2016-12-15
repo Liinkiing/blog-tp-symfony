@@ -1,4 +1,4 @@
-{% embed "base.html.twig" %}
+{% embed "base.html.twig" with {sidebar: 0} %}
     {% block body %}
         {% embed "forms/_article.html.twig" with {edit: false} %}
         {% endembed %}

@@ -15,8 +15,8 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
 
-
-        return $this->render('default/index.html.twig');
+        $articles = $this->getDoctrine()->getRepository('AppBundle:Article')->findLastNth(4);
+        return $this->render('default/index.html.twig', ['articles' => $articles]);
     }
 
     /**

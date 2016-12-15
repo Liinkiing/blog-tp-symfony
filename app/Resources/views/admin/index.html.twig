@@ -1,11 +1,11 @@
-{% embed 'base.html.twig' %}
+{% embed 'base.html.twig' with {sidebar: 0} %}
 
     {% block body %}
 
         <div class="container offset">
             <h1>Administration</h1>
             <div class="col-lg-6">
-                <a href="{{ path('admin_article_index') }}" class="btn btn-info">Éditer les utilisateurs</a>
+                <a href="{{ path('admin_user_index') }}" class="btn btn-info">Éditer les utilisateurs</a>
             </div>
             <div class="col-lg-6">
                 <a href="{{ path('admin_article_index') }}" class="btn btn-info">Éditer les articles</a>

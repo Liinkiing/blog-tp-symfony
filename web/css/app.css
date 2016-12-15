@@ -5,7 +5,6 @@ body {
   background: #efefef; }
 
 .well.bs-component.form {
-  width: 700px;
   margin: 0 auto; }
 
 .sidebar {
@@ -13,6 +12,22 @@ body {
   background: rgba(245, 245, 245, 0.9);
   border-radius: 3px;
   border: 1px solid rgba(0, 0, 0, 0.22);
-  margin-top: 30px; }
+  margin-top: 80px; }
+
+.comment {
+  padding: 10px;
+  background: rgba(245, 245, 245, 0.6);
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  margin-bottom: 10px; }
+
+article {
+  padding: 0 20px 20px 20px;
+  background: rgba(245, 245, 245, 0.9);
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  margin-bottom: 30px; }
+  article:first-of-type {
+    margin-top: 20px; }
 
 /*# sourceMappingURL=app.css.map */

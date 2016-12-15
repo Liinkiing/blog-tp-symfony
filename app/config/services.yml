@@ -20,6 +20,11 @@ services:
             public: false
             tags:
                 - { name: twig.extension }
+     app.twig_extensions_text:
+            class: Twig_Extensions_Extension_Text
+            public: false
+            tags:
+                - { name: twig.extension }
      app.utils:
             class: AppBundle\Utils
             arguments: ['@swiftmailer.mailer', '@doctrine.orm.entity_manager', '@service_container']

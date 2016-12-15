@@ -2,14 +2,12 @@
 
     {% block body %}
 
-        <h1>Affichage de tous les articles</h1>
-        {% for article in articles  %}
-
-            <h2><a href="{{ path('article_show', {'day': article.createdAt | date('d'), 'month': article.createdAt | date('m'), 'slug': article.slug, 'year': article.createdAt | date('Y')}) }}">{{ article.title }}</a></h2>
-            <p>{{ article.content }}</p>
-            <p>{{ article.createdAt|date('m/d/Y, à H:i:s') }}</p>
-
-        {% endfor %}
+        {% if articles|length > 0 %}
+            <h1>Affichage de tous les articles</h1>
+            {% embed '_partials/_list_article.html.twig' with {'articles': articles} %}{% endembed %}
+        {% else %}
+            <h1>Il n y a actuellement aucun article pour le moment</h1>
+        {% endif %}
     {% endblock %}
 
 {% endembed %}

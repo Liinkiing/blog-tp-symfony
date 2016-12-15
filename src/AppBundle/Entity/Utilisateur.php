@@ -112,7 +112,7 @@ class Utilisateur implements UserInterface, \Serializable
     /**
      * @var Commentaire[]
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Commentaire", mappedBy="author")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Commentaire", mappedBy="author", cascade={"remove"})
      */
     private $comments;
 
@@ -377,6 +377,18 @@ class Utilisateur implements UserInterface, \Serializable
             array_push($r, $role->getRole());
         }
         return $r;
+    }
+
+
+    /**
+     * @return Role[]
+     */
+    public function getRolesObject() {
+        return $this->roles;
+    }
+
+    public function isExplicitlyGranted($role){
+        return in_array($role, $this->getRoles());
     }
 
     /**

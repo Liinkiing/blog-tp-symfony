@@ -3,25 +3,25 @@
     <form class="form-horizontal" action="" method="post">
         <fieldset>
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="username">Titre</label>
-                <div class="col-lg-8">
+                <label class="col-lg-1 control-label" for="username">Titre</label>
+                <div class="col-lg-11">
                     <input id="title" type="text" class="form-control" name="title"  {% if edit %} value="{{ article.title }}" {% endif %}>
                 </div>
             </div>
             <div class="form-group">
-                <label for="thumbnail" class="col-lg-4 control-label">URL de la miniature</label>
-                <div class="col-lg-8">
+                <label for="thumbnail" class="col-lg-1 control-label">URL de la miniature</label>
+                <div class="col-lg-11">
                     <input type="text" name="thumbnail" class="form-control" placeholder="Url de la miniature de votre article" {% if edit %} value="{{ article.thumbnail }}" {% endif %}>
                 </div>
             </div>
             <div class="form-group">
-                <label for="content" class="control-label col-lg-4">Contenu</label>
-                <div class="col-lg-8">
-                    <textarea class="form-control" name="content" cols="30" rows="10">{% if edit %}{{ article.content }}{% endif %}</textarea>
+                <label for="content" class="control-label col-lg-1">Contenu</label>
+                <div class="col-lg-11">
+                    <textarea class="form-control advanced-editor" name="content" cols="30" rows="10">{% if edit %}{{ article.content }}{% endif %}</textarea>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-lg-8 col-lg-offset-4">
+                <div class="col-lg-11 col-lg-offset-1">
                     <button class="btn btn-success" type="submit">{% if edit %} Editer {% else %} Ajouter {% endif %}</button>
                 </div>
             </div>

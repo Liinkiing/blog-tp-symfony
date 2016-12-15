@@ -80,6 +80,7 @@ class ArticleController extends Controller
             return $this->redirectToRoute("admin_article_index");
         }
     }
+
     /**
      * @param Request $request
      * @Route("/delete/{id}", name="admin_article_delete")

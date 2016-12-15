@@ -2,23 +2,45 @@
 
     {% block body %}
         <h1>{{ article.title }}</h1>
-        <p>{{ article.content }}</p>
+        <div class="article-content">{{ article.content|raw }}</div>
         <hr>
         <h2>Commentaires</h2>
+        {% if article.comments|length == 0 %}
+            <p>Il n y a pour le moment aucun commentaire, ajoutez le premier dès maintenant !</p>
+        {% endif %}
         {% if app.user %}
             <form action="{{ path('comment_new', {'slug': article.slug}) }}" method="post">
                 <div class="form-group">
-                    <textarea class="form-control" name="comment" id="" cols="30"  placeholder="Ajouter votre commentaire" rows="10"></textarea>
+                    <textarea class="form-control" name="comment" id="" cols="10"
+                              placeholder="Ajouter votre commentaire" rows="3"></textarea>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">Envoyer</button>
                 </div>
             </form>
+        {% else %}
+            <p><a href="{{ path('login') }}">Connectez vous</a> afin de commenter</p>
         {% endif %}
-        {% for comment in article.comments %}
-            <span>{{ comment.message }}</span>
-            <span>{{ comment.author.createdAt|date('d/m/Y H:i')  }}</span>
-        {% endfor %}
+
+
+        {% if article.comments | length > 0 %}
+            <div class="comments">
+                {% for comment in article.comments %}
+                    <div class="comment">
+                        <p><strong>{{ comment.author.username }}</strong></p>
+                        <p>{{ comment.message }}</p>
+                        <p>{{ comment.author.createdAt|date('d/m/Y H:i') }}</p>
+                        {% if app.user == comment.author or is_granted('ROLE_ADMIN') %}
+                            <form action="{{ path('comment_delete', {'id': comment.id}) }}" method="post">
+                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                            </form>
+                        {% endif %}
+                    </div>
+
+                {% endfor %}
+            </div>
+        {% endif %}
+
     {% endblock %}
 
 {% endembed %}

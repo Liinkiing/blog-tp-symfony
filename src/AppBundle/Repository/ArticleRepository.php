@@ -14,6 +14,11 @@ use AppBundle\Entity\Article;
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
 
+    /**
+     * @param $nth
+     * @param string $order
+     * @return Article[]
+     */
     public function findLastNth($nth, $order = "DESC") {
         $qb = $this->getEntityManager()->createQueryBuilder();
         return $qb->select('article')
