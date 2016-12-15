@@ -14,6 +14,16 @@ use AppBundle\Entity\Article;
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
 
+    public function findLastNth($nth, $order = "DESC") {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        return $qb->select('article')
+            ->from('AppBundle:Article', 'article')
+            ->setMaxResults($nth)
+            ->orderBy('article.createdAt', $order)
+            ->getQuery()
+            ->getResult();
+    }
+
     /**
      * @param $month
      * @param $year
@@ -45,7 +55,7 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
         $groupByYear = $qb->select('YEAR(article.createdAt) AS year, COUNT(article) AS cpt')
             ->from('AppBundle:Article', 'article')
             ->addGroupBy('year')
-//            ->orderBy('article.createdAt', $order)
+            ->orderBy('year', $order)
             ->getQuery()
             ->getArrayResult();
 
@@ -53,7 +63,6 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
             ->from('AppBundle:Article', 'article')
             ->addGroupBy('year')
             ->addGroupBy('month')
-//            ->orderBy('article.createdAt', $order)
             ->getQuery()
             ->getArrayResult();
 

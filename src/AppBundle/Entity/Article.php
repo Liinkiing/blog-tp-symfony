@@ -265,7 +265,7 @@ class Article
     /**
      * Get comments
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Commentaire[]
      */
     public function getComments()
     {
