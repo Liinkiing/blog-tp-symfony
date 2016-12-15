@@ -17,4 +17,12 @@ class DefaultController extends Controller
 
         return $this->render('default/index.html.twig');
     }
+
+    /**
+     * @Route(name="archive")
+     */
+    public function getArchiveAction() {
+        $articles = $this->getDoctrine()->getRepository('AppBundle:Article')->groupByYearAndMonth();
+        return $this->render('archive/list.html.twig', ['articles' => $articles]);
+    }
 }

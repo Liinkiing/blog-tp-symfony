@@ -17,8 +17,6 @@ class Article
     public function __construct()
     {
         $this->createdAt = new DateTime();
-        $this->slug = self::slugify($this->title);
-
     }
 
     /**

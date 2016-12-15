@@ -1,0 +1,10 @@
+
+<div class="articles">
+    {% for article in articles %}
+        <div class="article">
+            <h2>{{ article.title }}</h2>
+            <p>{{ article.author.username }}</p>
+            <p>{{ article.createdAt|date('d/m/Y - H:i') }}</p>
+        </div>
+    {% endfor %}
+</div>

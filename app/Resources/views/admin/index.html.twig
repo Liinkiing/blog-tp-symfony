@@ -2,7 +2,15 @@
 
     {% block body %}
 
-
+        <div class="container offset">
+            <h1>Administration</h1>
+            <div class="col-lg-6">
+                <a href="{{ path('admin_article_index') }}" class="btn btn-info">Éditer les utilisateurs</a>
+            </div>
+            <div class="col-lg-6">
+                <a href="{{ path('admin_article_index') }}" class="btn btn-info">Éditer les articles</a>
+            </div>
+        </div>
 
     {% endblock %}
 

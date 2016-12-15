@@ -1,0 +1,14 @@
+{% embed 'base.html.twig' with {title: 'Affichage des articles du ' ~ filteredDate|date('m') ~ '/' ~ filteredDate|date('Y') } %}
+
+    {% block body %}
+
+        {% set filteredMonth = filteredDate|localizeddate('medium', 'none', null, 'Europe/Paris', 'MMMM')|capitalize %}
+        {% if articles|length > 0 %}
+            <h1>Affichage des publiés en {{ filteredMonth }}</h1>
+            {% embed '_partials/_list_article.html.twig' with {'articles': articles} %}{% endembed %}
+        {% else %}
+            <h1>Aucun article trouvé pour le mois de {{ filteredMonth }}</h1>
+        {% endif %}
+    {% endblock %}
+
+{% endembed %}

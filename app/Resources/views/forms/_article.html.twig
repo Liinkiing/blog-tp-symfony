@@ -1,4 +1,5 @@
-<div class="well bs-component">
+
+<div class="well bs-component form">
     <form class="form-horizontal" action="" method="post">
         <fieldset>
             <div class="form-group">
@@ -14,8 +15,10 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="content" class="control-label">Contenu</label>
-                <textarea class="form-control" name="content" cols="30" rows="10">{% if edit %}{{ article.content }}{% endif %}</textarea>
+                <label for="content" class="control-label col-lg-4">Contenu</label>
+                <div class="col-lg-8">
+                    <textarea class="form-control" name="content" cols="30" rows="10">{% if edit %}{{ article.content }}{% endif %}</textarea>
+                </div>
             </div>
             <div class="form-group">
                 <div class="col-lg-8 col-lg-offset-4">

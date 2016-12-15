@@ -44,11 +44,14 @@ class ArticleController extends Controller
             $article->setTitle($request->get("title"))
                 ->setContent($request->get("content"))
                 ->setThumbnail($request->get('thumbnail'))
+                ->setSlug(Article::slugify($article->getTitle()))
                 ->setAuthor($this->getUser());
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();
+
+            $this->addFlash("success", "L'article a bien été ajouté !");
 
             return $this->redirectToRoute("admin_article_index");
 
@@ -68,6 +71,7 @@ class ArticleController extends Controller
             $article->setTitle($request->get("title"))
                 ->setContent($request->get("content"))
                 ->setThumbnail($request->get('thumbnail'))
+                ->setSlug(Article::slugify($article->getTitle()))
                 ->setAuthor($this->getUser())
                 ->setEditedAt(new \DateTime());
             $em = $this->getDoctrine()->getManager();

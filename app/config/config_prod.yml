@@ -22,4 +22,4 @@ monolog:
 doctrine:
     dbal:
         driver:   pdo_pgsql
-        url:      "%env(DATABASE_URL)%"
+        url:      "%database_url%"

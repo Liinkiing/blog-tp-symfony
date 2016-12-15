@@ -1,0 +1,13 @@
+<ul>Archive
+    {% for key, value in articles %}
+        <li>{{ key }} ({{ value.count }})
+            <ul>
+                {% for item in value.items  %}
+                    {% for month, cpt in item %}
+                        <li><a href="{{ path('article_list_filter', {'month': month, 'year': key}) }}">{{ ("01-" ~ month ~ "-2016")|localizeddate('medium', 'none', null, 'Europe/Paris', 'MMMM') }} ({{ cpt }})</a></li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>

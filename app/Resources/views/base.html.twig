@@ -35,17 +35,23 @@
         </div>
     </nav>
     <main class="container offset">
-        {% if app.session.flashbag.peekAll|length > 0 %}
-            {% for type, messages in app.session.flashbag.all %}
-                {% for message in messages %}
-                    <div class="alert alert-dismissable alert-{{ type ? type : 'info' }}">
-                        {{ message|raw }}
-                    </div>
+        <div class="col-lg-8">
+            {% if app.session.flashbag.peekAll|length > 0 %}
+                {% for type, messages in app.session.flashbag.all %}
+                    {% for message in messages %}
+                        <div class="alert alert-dismissable alert-{{ type ? type : 'info' }}">
+                            {{ message|raw }}
+                        </div>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
-        {% endif %}
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+            {% endif %}
+            {% block body %}{% endblock %}
+            {% block javascripts %}{% endblock %}
+        </div>
+        <div class="col-lg-4">
+            {% embed '_partials/_sidebar.html.twig' %}{% endembed %}
+        </div>
     </main>
+
     </body>
 </html>
