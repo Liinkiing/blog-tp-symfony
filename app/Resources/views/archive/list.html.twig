@@ -1,5 +1,6 @@
 <ul>Archive
     {% for key, value in articles %}
+        {#<pre>{{ dump(articles) }}</pre>#}
         <li>{{ key }} ({{ value.count }})
             <ul>
                 {% for item in value.items  %}

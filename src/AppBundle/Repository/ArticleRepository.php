@@ -42,18 +42,18 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb2 = $this->getEntityManager()->createQueryBuilder();
 
-        $groupByYear = $qb->select('MONTH(article.createdAt) AS month, YEAR(article.createdAt) AS year, COUNT(article) AS cpt')
+        $groupByYear = $qb->select('YEAR(article.createdAt) AS year, COUNT(article) AS cpt')
             ->from('AppBundle:Article', 'article')
             ->addGroupBy('year')
-            ->orderBy('article.createdAt', $order)
+//            ->orderBy('article.createdAt', $order)
             ->getQuery()
             ->getArrayResult();
 
         $groupByMonth = $qb2->select('MONTH(article.createdAt) AS month, YEAR(article.createdAt) AS year, COUNT(article) AS cpt')
             ->from('AppBundle:Article', 'article')
-            ->addGroupBy('month')
             ->addGroupBy('year')
-            ->orderBy('article.createdAt', $order)
+            ->addGroupBy('month')
+//            ->orderBy('article.createdAt', $order)
             ->getQuery()
             ->getArrayResult();
 
