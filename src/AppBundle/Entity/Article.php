@@ -73,7 +73,7 @@ class Article
     /**
      * @var Commentaire[]
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Commentaire", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Commentaire", mappedBy="article", cascade={"remove"})
      */
     private $comments;
 

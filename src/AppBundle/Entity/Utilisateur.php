@@ -112,7 +112,7 @@ class Utilisateur implements UserInterface, \Serializable
     /**
      * @var Commentaire[]
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Commentaire", mappedBy="author", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Commentaire", mappedBy="author", cascade={"remove"})
      */
     private $comments;
 
