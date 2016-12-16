@@ -73,7 +73,7 @@ class ArticleController extends Controller
                 ->setThumbnail($request->get('thumbnail'))
                 ->setSlug(Article::slugify($article->getTitle()))
                 ->setAuthor($this->getUser())
-                ->setEditedAt(new \DateTime());
+                ->setEditedAt(new \DateTime('now', 'Europe/Paris'));
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', "L'article a bien été edité !");
