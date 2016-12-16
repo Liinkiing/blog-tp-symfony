@@ -18,6 +18,9 @@ class SecurityController extends Controller
      */
     public function loginAction(Request $request)
     {
+        if($this->getUser()) {
+            return $this->redirectToRoute('homepage');
+        }
         $authenticationUtils = $this->get('security.authentication_utils');
 
         $lastUsername = $authenticationUtils->getLastUsername();

@@ -1,9 +1,41 @@
-{% embed 'base.html.twig' with {title: 'Erreur 404'} %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>TheBlog78 - {{ title|default('Accueil') }}{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="{{ path('homepage') }}" class="navbar-brand">TheBlog78</a>
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{{ path('article_list') }}">Tous les articles</a>
+                </li>
+            </ul>
 
-    {% block body %}
-        <h1>Erreur 404</h1>
-        <p>La page que vous recherchez est indisponible.</p>
-        <a href="{{ path('homepage') }}" class="btn btn-primary">Retourner à l'accueil</a>
-    {% endblock %}
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+    </div>
+</nav>
+<main class="container offset">
 
-{% endembed %}
+    <h1>Erreur 404</h1>
+    <p>La page que vous recherchez n'a pas pu être trouvé ! :(</p>
+    <a href="{{ path('homepage') }}" class="btn btn-primary">Retourner à l'accueil</a>
+</main>
+<script
+        src="http://code.jquery.com/jquery-3.1.1.js"
+        integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+        crossorigin="anonymous"></script>
+<script src="{{ asset('js/jquery.sticky.js') }}"></script>
+</body>
+</html>
