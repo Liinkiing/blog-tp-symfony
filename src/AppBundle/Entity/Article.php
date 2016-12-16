@@ -16,7 +16,7 @@ class Article
 
     public function __construct()
     {
-        $this->createdAt = new DateTime('now', 'Europe/Paris');
+        $this->createdAt = new DateTime('now', new \DateTimeZone('Europe/Paris'));
     }
 
     /**

@@ -29,7 +29,7 @@
                     <div class="comment">
                         <p><strong>{{ comment.author.username }}</strong></p>
                         <p>{{ comment.message }}</p>
-                        <p>{{ comment.author.createdAt|date('d/m/Y H:i') }}</p>
+                        <p>{{ comment.createdAt|date('d/m/Y H:i') }}</p>
                         {% if app.user == comment.author or is_granted('ROLE_ADMIN') %}
                             <form action="{{ path('comment_delete', {'id': comment.id}) }}" method="post">
                                 <button type="submit" class="btn btn-danger">Supprimer</button>
