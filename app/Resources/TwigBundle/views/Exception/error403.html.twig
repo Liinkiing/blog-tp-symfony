@@ -1,0 +1,9 @@
+{% embed 'base.html.twig' with {title: 'Erreur 403'} %}
+
+    {% block body %}
+        <h1>Erreur 403</h1>
+        <p>Petit coquin, tu n'as pas le droit d'accéder à cette page !</p>
+        <a href="{{ path('homepage') }}" class="btn btn-primary">Retourner à l'accueil</a>
+    {% endblock %}
+
+{% endembed %}

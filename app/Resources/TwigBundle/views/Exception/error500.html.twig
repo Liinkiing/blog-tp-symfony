@@ -1,0 +1,9 @@
+{% embed 'base.html.twig' with {title: 'Erreur 500'} %}
+
+    {% block body %}
+        <h1>Erreur 500</h1>
+        <p>En gros, je sais pas ce qui a pas marché, mais ça a pas marché, du coup je te retourne une erreur 500.</p>
+        <a href="{{ path('homepage') }}" class="btn btn-primary">Retourner à l'accueil</a>
+    {% endblock %}
+
+{% endembed %}

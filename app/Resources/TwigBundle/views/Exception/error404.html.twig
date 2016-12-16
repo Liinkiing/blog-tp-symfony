@@ -1,0 +1,9 @@
+{% embed 'base.html.twig' with {title: 'Erreur 404'} %}
+
+    {% block body %}
+        <h1>Erreur 404</h1>
+        <p>La page que vous recherchez est indisponible.</p>
+        <a href="{{ path('homepage') }}" class="btn btn-primary">Retourner à l'accueil</a>
+    {% endblock %}
+
+{% endembed %}
