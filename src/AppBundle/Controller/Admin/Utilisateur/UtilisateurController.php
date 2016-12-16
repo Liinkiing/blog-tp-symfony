@@ -46,7 +46,7 @@ class UtilisateurController extends Controller
         $em->remove($user);
         $em->flush();
         $this->addFlash('success', "L'utilisateur a bien été supprimé !");
-        return $this->redirectToRoute("admin_article_index");
+        return $this->redirectToRoute("admin_user_index");
     }
 
     /**
