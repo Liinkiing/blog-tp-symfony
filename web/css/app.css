@@ -30,4 +30,7 @@ article {
   article:first-of-type {
     margin-top: 20px; }
 
+.mce-tinymce.mce-container.mce-panel {
+  border-radius: 5px !important; }
+
 /*# sourceMappingURL=app.css.map */
